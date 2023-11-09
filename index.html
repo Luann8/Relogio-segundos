@@ -1,104 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <link rel="shortcut icon" href="https://raw.githubusercontent.com/Luann8/Relogio-segundos/main/OIP.ico?token=GHSAT0AAAAAACJV6HYOOLUHOQ4F5FXZRJZAZKBP3FQ" type="image/x-icon">
-    <title>Relógio digital</title>
-<body>
-        <style>
-    
+  <meta charset="UTF-8" />
+  <link rel="shortcut icon" href="https://raw.githubusercontent.com/Luann8/Relogio-segundos/main/OIP.ico?token=GHSAT0AAAAAACJV6HYOOLUHOQ4F5FXZRJZAZKBP3FQ" type="image/x-icon">
+  <title>Relógio digital</title>
+  <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap');
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Open Sans', sans-serif;
-}
 
-body {
-    height: 100vh;
-    background: linear-gradient(120deg, #7ddb58d8, #363535da);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    body {
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      background-color: rgb(171, 171, 197); /* Cor de fundo no modo dark */
+      transition: background-color 0.5s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.relogio {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    height: 200px;
-    width: 550px;
-    background: transparent;
-    border-radius: 3px;
-    box-shadow: 0px 8px 10px rgba(0, 0, 0, .5);
-}
+    @keyframes animacaoBolhas {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-500px) scale(1.5);
+        opacity: 0;
+      }
+    }
 
-.relogio div {
-    height: 170px;
-    width: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    background: rgba(5, 5, 5, .9);
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, .7);
-    border-radius: 7px;
-    letter-spacing: 3px;
-}
+    .bolha {
+      position: absolute;
+      background-color: #ecf0f1; /* Cor das bolhas */
+      border-radius: 50%;
+      animation: animacaoBolhas 10s linear infinite;
+      opacity: 0.7; /* Um pouco de transparência */
+    }
 
-.relogio span {
-    font-weight: bolder;
-    font-size: 60px;
-}
+    /* Adapte a quantidade de bolhas conforme necessário */
+    .bolha1 { width: 60px; height: 60px; top: 10%; left: 10%; animation-delay: 2s; }
+    .bolha2 { width: 80px; height: 80px; top: 50%; left: 50%; animation-delay: 4s; }
+    .bolha3 { width: 50px; height: 50px; top: 80%; left: 80%; animation-delay: 1s; }
+    .bolha4 { width: 70px; height: 70px; top: 30%; left: 30%; animation-delay: 3s; }
+    .bolha5 { width: 90px; height: 90px; top: 70%; left: 70%; animation-delay: 5s; }
+    .bolha6 { width: 100px; height: 100px; top: 40%; left: 40%; animation-delay: 2.5s; }
 
-.relogio span.tempo {
-    font-size: 10px;
-}
+    body.dark {
+        background-color: #1b1d1f; /* Cor de fundo no modo dark */
+        color: #ecf0f1; /* Cor do texto no modo dark */
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* Sombra branca */
+      }
 
-</style>
+    .relogio {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      height: 200px;
+      width: 550px;
+      background: transparent;
+      border-radius: 3px;
+      box-shadow: 0px 8px 10px rgba(0, 0, 0, .5);
+      font-family: 'Open Sans', sans-serif;
+    }
 
-<div class="relogio">
-    
-            <div>
-                <span id="horas">00</span>
-                <span class="tempo">Horas</span>
-            </div>
-    
-            <div>
-                <span id="minutos">00</span>
-                <span class="tempo">Minutos</span>
-            </div>
-    
-            <div>
-                <span id="segundos">00</span>
-                <span class="tempo">Segundos</span>
-            </div>
-        </div>
-    
-    
-    <script>
-        const horas = document.getElementById('horas');
-const minutos = document.getElementById('minutos');
-const segundos = document.getElementById('segundos');
+    .relogio div {
+      height: 170px;
+      width: 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      background: rgba(5, 5, 5, .9);
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, .7);
+      border-radius: 7px;
+      letter-spacing: 3px;
+    }
 
-const relogio = setInterval(function time() {
-    let dateToday = new Date();
-    let hr = dateToday.getHours();
-    let min = dateToday.getMinutes();
-    let s = dateToday.getSeconds();
     
-    if (hr < 10) hr = '0' + hr;
-    
-    if (min < 10) min = '0' + min;
-    
-    if (s < 10) s = '0' + s;
-    
-    horas.textContent = hr;
-    minutos.textContent = min;
-    segundos.textContent = s;
+    body.dark .relogio {
+    box-shadow: 0px 8px 10px rgba(255, 255, 255, 0.308); /* Sombra branca no modo dark */
+  }
 
-})
-    </script>
+    .relogio span {
+      font-weight: bolder;
+      font-size: 60px;
+    }
+
+    .relogio span.tempo {
+      font-size: 10px;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const bolhas = document.querySelectorAll('.bolha');
+
+      bolhas.forEach((bolha, index) => {
+        const factor = index + 1;
+        bolha.style.animationDelay = `${Math.random() * 5}s`;
+      });
+
+      document.body.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="bolha bolha1"></div>
+  <div class="bolha bolha2"></div>
+  <div class="bolha bolha3"></div>
+  <div class="bolha bolha4"></div>
+  <div class="bolha bolha5"></div>
+  <div class="bolha bolha6"></div>
+
+  <div class="relogio">
+    <div>
+      <span id="horas">00</span>
+      <span class="tempo">Horas</span>
+    </div>
+
+    <div>
+      <span id="minutos">00</span>
+      <span class="tempo">Minutos</span>
+    </div>
+
+    <div>
+      <span id="segundos">00</span>
+      <span class="tempo">Segundos</span>
+    </div>
+  </div>
+
+  <script>
+    const horas = document.getElementById('horas');
+    const minutos = document.getElementById('minutos');
+    const segundos = document.getElementById('segundos');
+
+    const relogio = setInterval(() => {
+      let dateToday = new Date();
+      let hr = dateToday.getHours();
+      let min = dateToday.getMinutes();
+      let s = dateToday.getSeconds();
+
+      if (hr < 10) hr = '0' + hr;
+      if (min < 10) min = '0' + min;
+      if (s < 10) s = '0' + s;
+
+      horas.textContent = hr;
+      minutos.textContent = min;
+      segundos.textContent = s;
+    }, 1000);
+  </script>
 </body>
-    </html>
+</html>
